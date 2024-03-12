@@ -9,6 +9,19 @@ module.exports = {
       configFile: babel.resolvedFilepath || babel.defaultFilepath,
     },
   },
+  settings: {
+    'import/resolver': {
+      webpack: {
+        config: path.resolve(process.cwd(), './webpack.dev.config.js'),
+      },
+      alias: {
+        map: [
+          ['@root_path', path.resolve(process.cwd(), '.')],
+        ],
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+      },
+    },
+  },
   rules: {
     'import/no-extraneous-dependencies': [
       'error',
@@ -35,7 +48,17 @@ module.exports = {
     }],
     'import/no-import-module-export': 'off',
     'react/function-component-definition': [2, { namedComponents: 'arrow-function' }],
+    'import/prefer-default-export': 'off',
+    'import/no-extraneous-dependencies': 'off',
   },
+  overrides: [
+    {
+      files: ['**/plugins/**/*.jsx'],
+      rules: {
+        'import/no-extraneous-dependencies': 'off',
+      },
+    },
+  ],
   globals: {
     newrelic: false,
   },
